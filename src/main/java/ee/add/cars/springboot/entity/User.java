@@ -16,7 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long user_id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -25,8 +25,13 @@ public class User {
     private String lastName;
 
     @Column(name = "phone_nr", unique = true)
-    private int phoneNr;
+    private String phoneNr;
 
     @Column(name = "has_license")
     private boolean hasLicense;
+
+    // One user can have many car models
+    @ManyToOne
+    @JoinColumn(name = "model_id")   // model_name
+    private CarModel selectedCarModel;
 }

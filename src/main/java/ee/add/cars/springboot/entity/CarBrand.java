@@ -6,21 +6,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "cars")
-public class Car {
+@Table(name = "brand")  // Car brand table
+public class CarBrand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "brand")
-    private String brand;
+    @Column(name = "brand_name")
+    private String brandName;
 
-    @Column(name = "model")
-    private String model;
+    // One car brand can have many car classes
+//    @OneToMany(mappedBy = "brand")   //brand
+//    private List<CarClass> classes;
 }

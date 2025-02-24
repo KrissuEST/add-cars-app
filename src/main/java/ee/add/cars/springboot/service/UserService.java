@@ -1,17 +1,33 @@
 package ee.add.cars.springboot.service;
 
-import ee.add.cars.springboot.dto.UserDto;
+import ee.add.cars.springboot.entity.User;
+import ee.add.cars.springboot.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface UserService {
-    UserDto createUser(UserDto userDto);
+@Service
+@AllArgsConstructor
+public class UserService {
 
-    UserDto getUserById(Long userId);
+    @Autowired   //It's a constructor
+    private UserRepository userRepository;
 
-    List<UserDto> getAllUsers();
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
 
-    UserDto updateUser(Long userId, UserDto updatedUser);
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
-    void deleteUser(Long userId);
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
 }
