@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:src="@{/javascript/scripts.js}"></script>   <!-- Include the external JS file -->
+</head>
+<body>
+<form th:action="@{/update/{id}(id=${user.id})}" th:object="${user}" method="post">
+    <label th:text="#{form.firstName}">First Name: <input type="text" th:field="*{firstName}" /></label>
+    <label th:text="#{form.lastName}">Last Name: <input type="text" th:field="*{lastName}" /></label>
+    <label th:text="#{form.phoneNr}">Phone: <input type="text" th:field="*{phoneNr}" /></label>
+    <label th:text="#{form.hasLicense}">Has Driving License: <input type="checkbox" th:field="*{hasLicense}" /></label>
+    <label th:text="#{form.carBrand}">Car Brand:
+        <select id="brand" th:field="*{selectedCarModel.carClass.brand.id}" onchange="loadClasses()">
+            <option value="">Select Brand</option>
+            <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}"></option>
+        </select>
+    </label>
+    <label th:text="#{form.carClass}">Car Class:
+        <select id="class" th:field="*{selectedCarModel.carClass.id}" onchange="loadModels()">
+            <option value="">Select Class</option>
+        </select>
+    </label>
+    <label th:text="#{form.carModel}">Car Model:
+        <select id="model" th:field="*{selectedCarModel.id}">
+            <option value="">Select Model</option>
+        </select>
+    </label>
+    <button type="submit" th:text="#{form.edit}">Update</button>
+</form>
+</body>
+</html>

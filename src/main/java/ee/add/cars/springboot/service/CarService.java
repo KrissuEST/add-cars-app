@@ -12,8 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-@AllArgsConstructor
+/* Not sure is this class needed at all. */
+//@Service
+//@AllArgsConstructor
 public class CarService {
 
     @Autowired   //It's a constructor
@@ -25,12 +26,12 @@ public class CarService {
     @Autowired
     private CarModelRepository carModelRepository;
 
-    public List<CarBrand> getAllBrands() {
+    public List<CarBrand> getAllCarBrands() {
         return carBrandRepository.findAll();
     }
 
     public List<CarClass> getClassesByBrand(Long brandId) {
-        return carClassRepository.findByBrand_Id(brandId);
+        return carClassRepository.findByBrandId(brandId);
     }
 
     public List<CarModel> getModelsByClass(Long classId) {

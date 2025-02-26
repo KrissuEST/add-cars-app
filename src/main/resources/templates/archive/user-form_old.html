@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css">
+    <!-- Include the external JS files -->
+    <script src="/javascript/loadClasses.js"></script>
+    <script src="/javascript/loadModels.js"></script>
+    <!--     th:href = "@{/css/main.css}"  <- If needed css in future -->
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="text-right">
+        <a th:href="@{/user-form?lang=en_US}">English</a> |
+        <a th:href="@{/user-form?lang=et_EE}">Eesti</a>
+    </div>
+    <div class="container">
+        <h3 th:text="#{label.userFormPageTitle}">Please insert your contact data and car brands of what you are interested</h3>
+        <form th:action="@{/saveUser}" th:object="${user}" method="post">
+            <!-- User input fields -->
+            <div class="form-group">
+                <label th:text="#{label.firstName}">First Name</label>
+                <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+            </div>
+            <div class="form-group">
+                <label th:text="#{label.lastName}">Last Name</label>
+                <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+            </div>
+            <div class="form-group">
+                <label th:text="#{label.phoneNr}">Phone Number</label>
+                <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNr}" required>
+            </div>
+            <div class="form-group">
+                <label th:text="#{label.hasLicense}">Has Car License</label>
+                <input type="checkbox" id="hasLicense" th:field="*{hasLicense}">
+            </div>
+            <!-- Hierarchical Car Brand, Class and Model Selection -->
+            <div class="form-group">
+                <label th:text="#{label.carModel}">Car Model</label>
+                <select class="form-control" id="carModel" th:field="*{carModels}" multiple>
+<!--                    <option value="">Select Model</option>-->
+                    <th:block th:each="brand : ${carBrands}">
+                        <optgroup th:label="${brand.name}">
+                            <th:block th:each="carClass : ${brand.classes}">
+                                <optgroup th:label="${carClass.name}">
+                                    <th:block th:each="model : ${carClass.models}">
+                                        <option th:value="${model.id}" th:text="${model.name}"></option>
+                                    </th:block>
+                                </optgroup>
+                            </th:block>
+                        </optgroup>
+                    </th:block>
+                </select>
+            </div>
+            <!-- Save button -->
+            <button type="submit" class="btn btn-primary" th:text="#{button.save}">Save</button>
+        </form>
+    </div>
+
+    <div>
+        <div class="container">  <!-- vb pole vaja seda  -->
+            <h2>Users List</h2>
+            <table class="table table-success table-striped" style="width:800px">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" th:text="#{label.firstName}">First name</th>
+                    <th scope="col" th:text="#{label.lastName}">Last name</th>
+                    <th scope="col" th:text="#{label.phoneNr}">Phone nr</th>
+                    <th scope="col" th:text="#{label.hasLicense}">Has Licence</th>
+                    <th scope="col" th:text="#{label.carModel}">Car Models</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.phoneNr}"></td>
+                    <td th:text="${user.hasLicense()} ? #{label.yes} : #{label.no}"></td>
+                    <td>
+                        <span th:each="model : ${user.carModels}" th:text="${model.name} + ' '"></span>
+                    </td>
+                    <td>
+                        <!-- Edit and Delete buttons for table -->
+                        <a th:href="@{/user-edit/{id}(id=${user.id})}" th:text="#{button.edit}">Edit</a>
+                        <a th:href="@{/deleteUser/{id}(id=${user.id})}" th:text="#{button.delete}">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

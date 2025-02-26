@@ -4,8 +4,8 @@ import ee.add.cars.springboot.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-// Database connection, mapping Person class to database table.
+// Database connection, mapping User class to database table.
 // The art of Jpa, Hiberante, converting Java class to Database table and vice versa.
-@Repository
+//@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 }

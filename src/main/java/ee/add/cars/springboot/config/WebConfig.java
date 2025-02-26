@@ -1,4 +1,4 @@
-package ee.add.cars.springboot;
+package ee.add.cars.springboot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
@@ -9,7 +9,8 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
 
-/* This class made for multilanguage support in Est and Eng */
+/* This class made for multilanguage support in Est and Eng.
+   Didn't get it totally working sadly. */
 public class WebConfig implements WebMvcConfigurer {
 
     @Bean

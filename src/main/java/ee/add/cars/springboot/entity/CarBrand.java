@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,7 +25,10 @@ public class CarBrand {
     @Column(name = "brand_name")
     private String brandName;
 
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<CarClass> classes = new HashSet<>();
+
     // One car brand can have many car classes
-//    @OneToMany(mappedBy = "brand")   //brand
+//    @OneToMany(mappedBy = "carBrand")   //brand
 //    private List<CarClass> classes;
 }

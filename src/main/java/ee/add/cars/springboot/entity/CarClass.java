@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -30,6 +32,9 @@ public class CarClass {
     private CarBrand brand;  // This is the owning side of the relationship
 
     // One car class can have many car models
-    @OneToMany(mappedBy = "carClass")
-    private List<CarModel> models;
+    @OneToMany(mappedBy = "carClass", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<CarModel> models = new HashSet<>();
+
+//    @OneToMany(mappedBy = "carClass")
+//    private List<CarModel> models;
 }

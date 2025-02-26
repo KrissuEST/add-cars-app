@@ -26,8 +26,9 @@ public class CarModel {
     @JoinColumn(name = "class_id")
     private CarClass carClass;
 
-    // Many car models can belong to many users
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User carUser;
+//
+//    // Many car models can belong to many users
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User carUser;
 }
